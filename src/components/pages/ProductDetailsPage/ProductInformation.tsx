@@ -1,14 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/shadcn/badge";
-import { Button } from "@/components/ui/shadcn/button";
-import { Card, CardContent } from "@/components/ui/shadcn/card";
-import { Separator } from "@/components/ui/shadcn/separator";
-import type { FakeStoreProduct } from "@/lib/types/FakeStoreProduct";
-import { Heart, Share2, Star } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
-import ProductReviews from "./ProductReviews";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,7 +9,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/shadcn/breadcrumb";
+import { Button } from "@/components/ui/shadcn/button";
+import { Separator } from "@/components/ui/shadcn/separator";
+import type { FakeStoreProduct } from "@/lib/types/FakeStoreProduct";
+import { Heart, Share2, Star } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router";
+import { toast } from "sonner";
+import ProductReviews from "./ProductReviews";
 
 export interface ProductInformationProps {
   productData: FakeStoreProduct;
@@ -47,7 +46,7 @@ const ProductInformation = ({
           url: window.location.href,
         });
       } catch (error) {
-        console.log("Error sharing:", error);
+        console.error("Error sharing:", error);
       }
     } else {
       // Fallback: copy to clipboard
@@ -111,12 +110,7 @@ const ProductInformation = ({
           {/* Product Information */}
           <section className="space-y-6">
             <section>
-              <Badge
-                variant="secondary"
-                className="mb-2"
-              >
-                {category}
-              </Badge>
+              <Badge className="mb-2">{category}</Badge>
               <h1 className="text-3xl leading-tight font-bold">{title}</h1>
             </section>
 
@@ -163,19 +157,6 @@ const ProductInformation = ({
                 <Share2 className="h-5 w-5" />
               </Button>
             </section>
-
-            {/* Product Features */}
-            <Card>
-              <CardContent>
-                <h3 className="mb-3 font-semibold">Product Features</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• High-quality materials and construction</li>
-                  <li>• Durable and long-lasting design</li>
-                  <li>• Perfect for everyday use</li>
-                  <li>• Excellent value for money</li>
-                </ul>
-              </CardContent>
-            </Card>
           </section>
         </section>
 
