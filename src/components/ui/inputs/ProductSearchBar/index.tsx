@@ -37,9 +37,7 @@ const ProductSearchBar = () => {
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <span className="text-sm text-muted-foreground">
-          Search in category:
-        </span>
+        <span className="text-sm text-muted-foreground">Search in:</span>
         <CategoryFilters />
       </div>
     </div>
