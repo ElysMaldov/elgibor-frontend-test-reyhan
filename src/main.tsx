@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")!).render(
           persistor={persistor}
         >
           <NuqsAdapter>
-            <Toaster richColors />
+            <Toaster />
             <App />
           </NuqsAdapter>
         </PersistGate>

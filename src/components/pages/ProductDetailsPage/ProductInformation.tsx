@@ -1,3 +1,4 @@
+import AddToWishlistButton from "@/components/ui/buttons/AddToWishlistButton";
 import { Badge } from "@/components/ui/shadcn/badge";
 import {
   Breadcrumb,
@@ -11,8 +12,7 @@ import { Button } from "@/components/ui/shadcn/button";
 import { Separator } from "@/components/ui/shadcn/separator";
 import type { RootState } from "@/lib/store";
 import type { FakeStoreProduct } from "@/lib/types/FakeStoreProduct";
-import { Heart, Share2, Star } from "lucide-react";
-import { useState } from "react";
+import { Share2, Star } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import { toast } from "sonner";
@@ -32,18 +32,6 @@ const ProductInformation = ({
     (state: RootState) =>
       state.productReviews.reviews[id]?.averageRating.toFixed(1) ?? 0,
   );
-
-  const [isWishlisted, setIsWishlisted] = useState(false);
-
-  const handleWishlistToggle = () => {
-    setIsWishlisted(!isWishlisted);
-
-    if (isWishlisted) {
-      toast("Product added to your wishlist");
-    } else {
-      toast("Product removed from your wishlist");
-    }
-  };
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -146,17 +134,7 @@ const ProductInformation = ({
             <Separator />
 
             <section className="flex gap-3">
-              <Button
-                onClick={handleWishlistToggle}
-                variant={isWishlisted ? "default" : "outline"}
-                size="lg"
-                className="flex-1"
-              >
-                <Heart
-                  className={`mr-2 h-5 w-5 ${isWishlisted ? "fill-current" : ""}`}
-                />
-                {isWishlisted ? "In Wishlist" : "Add to Wishlist"}
-              </Button>
+              <AddToWishlistButton productId={id.toLocaleString()} />
               <Button
                 onClick={handleShare}
                 variant="outline"
