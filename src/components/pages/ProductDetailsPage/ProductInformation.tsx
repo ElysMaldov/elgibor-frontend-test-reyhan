@@ -9,20 +9,30 @@ import {
 } from "@/components/ui/shadcn/breadcrumb";
 import { Button } from "@/components/ui/shadcn/button";
 import { Separator } from "@/components/ui/shadcn/separator";
+import type { RootState } from "@/lib/store";
 import type { FakeStoreProduct } from "@/lib/types/FakeStoreProduct";
 import { Heart, Share2, Star } from "lucide-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import { toast } from "sonner";
 import ProductReviews from "./ProductReviews";
 
 export interface ProductInformationProps {
-  productData: FakeStoreProduct;
+  productData: Omit<FakeStoreProduct, "rating">;
 }
 
 const ProductInformation = ({
-  productData: { title, description, image, category, id, price, rating },
+  productData: { title, description, image, category, id, price },
 }: ProductInformationProps) => {
+  const totalReviews = useSelector(
+    (state: RootState) => state.productReviews.reviews[id]?.totalReviews ?? 0,
+  );
+  const averageRating = useSelector(
+    (state: RootState) =>
+      state.productReviews.reviews[id]?.averageRating.toFixed(1) ?? 0,
+  );
+
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleWishlistToggle = () => {
@@ -114,11 +124,11 @@ const ProductInformation = ({
 
             <section className="flex items-center gap-4">
               <section className="flex items-center gap-2">
-                {renderStars(rating.rate)}
-                <span className="font-semibold">{rating.rate}</span>
+                {renderStars(+averageRating)}
+                <span className="font-semibold">{averageRating}</span>
               </section>
               <span className="text-muted-foreground">
-                ({rating.count} reviews)
+                ({totalReviews} reviews)
               </span>
             </section>
 
@@ -159,11 +169,7 @@ const ProductInformation = ({
         </section>
 
         {/* Product Reviews Section */}
-        <ProductReviews
-          productId={id}
-          averageRating={rating.rate}
-          totalReviews={rating.count}
-        />
+        <ProductReviews productId={id.toString()} />
       </section>
     </section>
   );

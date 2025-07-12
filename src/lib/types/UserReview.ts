@@ -1,10 +1,10 @@
 export interface UserReview {
   id: string;
-  userId: string;
-  userName: string;
+  name: string;
+  email: string;
   userAvatar?: string;
   rating: number;
-  comment: string;
+  comment?: string;
   date: string;
   verified?: boolean;
 }

@@ -14,16 +14,16 @@ describe("productReviewsSlice", () => {
   const productId = "product-1";
   const review1: UserReview = {
     id: "review-1",
-    userId: "user-1",
-    userName: "Alice",
+    name: "Alice",
+    email: "alice@email.com",
     rating: 5,
     comment: "Great!",
     date: "2024-01-01",
   };
   const review2: UserReview = {
     id: "review-2",
-    userId: "user-2",
-    userName: "Bob",
+    name: "Bob",
+    email: "bob@email.com",
     rating: 3,
     comment: "Okay",
     date: "2024-01-02",
@@ -45,10 +45,10 @@ describe("productReviewsSlice", () => {
   it("should add a review", () => {
     store.dispatch(addReview({ productId, review: review1 }));
     const state = getState();
-    expect(state.reviews[productId].userReviews).toHaveLength(1);
-    expect(state.reviews[productId].userReviews[0]).toMatchObject(review1);
-    expect(state.reviews[productId].totalReviews).toBe(1);
-    expect(state.reviews[productId].averageRating).toBe(5);
+    expect(state.reviews[productId]?.userReviews).toHaveLength(1);
+    expect(state.reviews[productId]?.userReviews[0]).toMatchObject(review1);
+    expect(state.reviews[productId]?.totalReviews).toBe(1);
+    expect(state.reviews[productId]?.averageRating).toBe(5);
   });
 
   it("should update a review", () => {
@@ -61,9 +61,9 @@ describe("productReviewsSlice", () => {
       }),
     );
     const state = getState();
-    expect(state.reviews[productId].userReviews[0].rating).toBe(4);
-    expect(state.reviews[productId].userReviews[0].comment).toBe("Good");
-    expect(state.reviews[productId].averageRating).toBe(4);
+    expect(state.reviews[productId]?.userReviews[0].rating).toBe(4);
+    expect(state.reviews[productId]?.userReviews[0].comment).toBe("Good");
+    expect(state.reviews[productId]?.averageRating).toBe(4);
   });
 
   it("should delete a review", () => {
@@ -71,18 +71,18 @@ describe("productReviewsSlice", () => {
     store.dispatch(addReview({ productId, review: review2 }));
     store.dispatch(deleteReview({ productId, reviewId: "review-1" }));
     const state = getState();
-    expect(state.reviews[productId].userReviews).toHaveLength(1);
-    expect(state.reviews[productId].userReviews[0].id).toBe("review-2");
-    expect(state.reviews[productId].totalReviews).toBe(1);
-    expect(state.reviews[productId].averageRating).toBe(3);
+    expect(state.reviews[productId]?.userReviews).toHaveLength(1);
+    expect(state.reviews[productId]?.userReviews[0].id).toBe("review-2");
+    expect(state.reviews[productId]?.totalReviews).toBe(1);
+    expect(state.reviews[productId]?.averageRating).toBe(3);
   });
 
   it("should set reviews", () => {
     store.dispatch(setReviews({ productId, reviews: [review1, review2] }));
     const state = getState();
-    expect(state.reviews[productId].userReviews).toHaveLength(2);
-    expect(state.reviews[productId].totalReviews).toBe(2);
-    expect(state.reviews[productId].averageRating).toBe(4);
+    expect(state.reviews[productId]?.userReviews).toHaveLength(2);
+    expect(state.reviews[productId]?.totalReviews).toBe(2);
+    expect(state.reviews[productId]?.averageRating).toBe(4);
   });
 
   it("should clear reviews", () => {

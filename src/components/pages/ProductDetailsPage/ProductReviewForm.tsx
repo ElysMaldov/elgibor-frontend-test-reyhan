@@ -11,10 +11,14 @@ import {
 } from "@/components/ui/shadcn/form";
 import { Input } from "@/components/ui/shadcn/input";
 import { Textarea } from "@/components/ui/shadcn/textarea";
+import { addReview } from "@/lib/store/reducers/product-reviews";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Star } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 import { z } from "zod";
+import { nanoid } from "nanoid";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required").max(50),
@@ -23,9 +27,17 @@ const formSchema = z.object({
   comment: z.string().optional(),
 });
 
-export interface ProductReviewFormProps {}
+export interface ProductReviewFormProps {
+  productId: string;
+  onReviewSubmit: () => void;
+}
 
-const ProductReviewForm = ({}: ProductReviewFormProps) => {
+const ProductReviewForm = ({
+  productId,
+  onReviewSubmit,
+}: ProductReviewFormProps) => {
+  const dispatch = useDispatch();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +49,25 @@ const ProductReviewForm = ({}: ProductReviewFormProps) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      dispatch(
+        addReview({
+          productId,
+          review: {
+            ...values,
+            date: new Date().toISOString(),
+            id: nanoid(),
+          },
+        }),
+      );
+
+      toast.success("Thank you for your review!");
+
+      onReviewSubmit();
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      toast.error("Failed to submit your review. Please try again later.");
+    }
   };
 
   const renderRatingStars = (

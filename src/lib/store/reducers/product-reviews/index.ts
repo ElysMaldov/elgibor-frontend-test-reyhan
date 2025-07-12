@@ -4,13 +4,15 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 export interface ProductReviewsState {
-  reviews: {
-    [productId: string]: {
-      userReviews: UserReview[];
-      totalReviews: number;
-      averageRating: number;
-    };
-  };
+  reviews: Record<
+    string,
+    | {
+        userReviews: UserReview[];
+        totalReviews: number;
+        averageRating: number;
+      }
+    | undefined
+  >;
 }
 
 const initialState: ProductReviewsState = {

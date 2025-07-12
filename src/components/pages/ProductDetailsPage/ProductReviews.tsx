@@ -6,57 +6,28 @@ import {
 } from "@/components/ui/shadcn/avatar";
 import { Button } from "@/components/ui/shadcn/button";
 import { Separator } from "@/components/ui/shadcn/separator";
-import type { UserReview } from "@/lib/types/UserReview";
+import type { RootState } from "@/lib/store";
 import { Star } from "lucide-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 interface ProductReviewsProps {
-  productId: number;
-  averageRating: number;
-  totalReviews: number;
+  productId: string;
 }
 
-export default function ProductReviews({
-  // productId,
-  averageRating,
-  totalReviews,
-}: ProductReviewsProps) {
-  const [reviews /* setReviews */] = useState<UserReview[]>([
-    {
-      id: "1",
-      userId: "user1",
-      userName: "Sarah Johnson",
-      userAvatar: "/placeholder.svg?height=40&width=40",
-      rating: 5,
-      comment:
-        "Absolutely love this product! The quality exceeded my expectations and it arrived quickly. Would definitely recommend to others.",
-      date: "2024-01-15",
-      verified: true,
-    },
-    {
-      id: "2",
-      userId: "user2",
-      userName: "Mike Chen",
-      userAvatar: "/placeholder.svg?height=40&width=40",
-      rating: 4,
-      comment:
-        "Great value for money. The product works as described, though the packaging could be improved. Overall satisfied with the purchase.",
-      date: "2024-01-10",
-      verified: true,
-    },
-    {
-      id: "3",
-      userId: "user3",
-      userName: "Emily Rodriguez",
-      rating: 5,
-      comment:
-        "Perfect! Exactly what I was looking for. Fast shipping and excellent customer service. Will buy again.",
-      date: "2024-01-08",
-      verified: false,
-    },
-  ]);
-
+export default function ProductReviews({ productId }: ProductReviewsProps) {
   const [showAddReview, setShowAddReview] = useState(false);
+  const totalReviews = useSelector(
+    (state: RootState) =>
+      state.productReviews.reviews[productId]?.totalReviews ?? 0,
+  );
+  const averageRating = useSelector(
+    (state: RootState) =>
+      state.productReviews.reviews[productId]?.averageRating ?? 0,
+  );
+  const userReviews = useSelector(
+    (state: RootState) => state.productReviews.reviews[productId]?.userReviews,
+  );
 
   const renderStars = (rating: number, size: "sm" | "md" = "sm") => {
     const starSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";
@@ -102,41 +73,52 @@ export default function ProductReviews({
       </section>
 
       {/* Review Form */}
-      {showAddReview && <ProductReviewForm />}
+      {showAddReview && (
+        <ProductReviewForm
+          productId={productId}
+          onReviewSubmit={() => setShowAddReview(false)}
+        />
+      )}
 
       <Separator />
 
       {/* Reviews List */}
       <section className="space-y-6">
-        {reviews.map((review) => (
-          <section
-            key={review.id}
-            className="space-y-3"
-          >
-            <section className="flex items-start gap-3">
-              <Avatar className="h-10 w-10">
-                <AvatarImage
-                  src={review.userAvatar || "/placeholder.svg"}
-                  alt={review.userName}
-                />
-                <AvatarFallback>{review.userName.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <section className="flex-1 space-y-2">
-                <section className="flex items-center gap-2">
-                  <h4 className="font-semibold">{review.userName}</h4>
+        {userReviews
+          ?.slice()
+          .sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+          )
+          .map((review) => (
+            <section
+              key={review.id}
+              className="space-y-3"
+            >
+              <section className="flex items-start gap-3">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage
+                    src={review.userAvatar || "/placeholder.svg"}
+                    alt={review.name}
+                  />
+                  <AvatarFallback>{review.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <section className="flex-1 space-y-2">
+                  <section className="flex items-center gap-2">
+                    <h4 className="font-semibold">{review.name}</h4>
+                    <small>{review.email}</small>
+                  </section>
+                  <section className="flex items-center gap-2">
+                    {renderStars(review.rating)}
+                    <span className="text-sm text-muted-foreground">
+                      {new Date(review.date).toLocaleDateString()}
+                    </span>
+                  </section>
+                  <p className="text-sm leading-relaxed">{review.comment}</p>
                 </section>
-                <section className="flex items-center gap-2">
-                  {renderStars(review.rating)}
-                  <span className="text-sm text-muted-foreground">
-                    {review.date}
-                  </span>
-                </section>
-                <p className="text-sm leading-relaxed">{review.comment}</p>
               </section>
+              <Separator />
             </section>
-            <Separator />
-          </section>
-        ))}
+          ))}
       </section>
     </section>
   );
