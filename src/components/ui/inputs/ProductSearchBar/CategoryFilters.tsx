@@ -56,6 +56,7 @@ const CategoryFilter = ({ isSelected, category }: CategoryFilterProps) => {
 
   return (
     <button
+      data-testid={`category-filter-${category}`}
       className="cursor-pointer"
       onClick={() => {
         setCategories((prev) => {
