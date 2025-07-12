@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface WishlistState {
@@ -13,9 +15,9 @@ export const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   state.value += 1;
-    // },
+    increment: (state) => {
+      state.value += 1;
+    },
     // decrement: (state) => {
     //   state.value -= 1;
     // },
@@ -25,6 +27,12 @@ export const wishlistSlice = createSlice({
   },
 });
 
-export const {} = wishlistSlice.actions;
+export const { increment } = wishlistSlice.actions;
 
-export const wishlistReducer = wishlistSlice.reducer;
+export const wishlistReducer = persistReducer(
+  {
+    key: wishlistSlice.name,
+    storage,
+  },
+  wishlistSlice.reducer,
+);
