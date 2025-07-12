@@ -12,7 +12,11 @@ const ProductList = ({ products }: ProductListProps) => {
     </li>
   ));
 
-  return <ul className="grid grid-cols-2 gap-2.5">{productCards}</ul>;
+  return (
+    <ul className="grid grid-cols-2 gap-2.5 md:grid-cols-3 lg:grid-cols-4">
+      {productCards}
+    </ul>
+  );
 };
 
 export default ProductList;

@@ -24,10 +24,10 @@ const ProductCard = ({ category, image, price, title }: ProductCardProps) => {
       </CardContent>
       <section className="flex grow flex-col justify-between gap-y-2">
         <CardHeader>
-          <CardTitle>{title}</CardTitle>
           <CardDescription>
             <Badge>{category}</Badge>
           </CardDescription>
+          <CardTitle className="break-all">{title}</CardTitle>
         </CardHeader>
         <CardContent className="text-2xl font-bold">
           ${price.toLocaleString()}

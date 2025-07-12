@@ -1,5 +1,6 @@
 import { persistor } from "@/lib/store/index.ts";
 import StoreProvider from "@/lib/store/Provider.tsx";
+import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")!).render(
           loading={null}
           persistor={persistor}
         >
-          <App />
+          <NuqsAdapter>
+            <App />
+          </NuqsAdapter>
         </PersistGate>
       </StoreProvider>
     </BrowserRouter>
