@@ -1,3 +1,4 @@
+import AppFooter from "@/components/ui/navigation/AppFooter";
 import AppNavbar from "@/components/ui/navigation/AppNavbar";
 import { Outlet } from "react-router";
 
@@ -8,6 +9,7 @@ const AppLayout = () => {
       <section className="px-4">
         <Outlet />
       </section>
+      <AppFooter />
     </main>
   );
 };

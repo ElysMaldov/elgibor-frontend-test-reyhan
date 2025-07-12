@@ -1,5 +1,6 @@
+import AppLogo from "@/components/ui/logo/AppLogo";
 import { Button } from "@/components/ui/shadcn/button";
-import { Heart, Store } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link } from "react-router";
 
 const AppNavbar = () => {
@@ -7,10 +8,7 @@ const AppNavbar = () => {
     <nav className="sticky top-0 z-50 flex w-full flex-row justify-between border-b bg-background px-5 py-3">
       <Link to="/">
         <Button variant="link">
-          <h2 className="flex flex-row items-center gap-1.5">
-            <Store className="size-5.5" />
-            <p className="font-black">Chqred</p>
-          </h2>
+          <AppLogo />
         </Button>
       </Link>
 
