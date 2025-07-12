@@ -22,4 +22,22 @@ test("User can query products based on name", async ({ page }) => {
   await expect(page.getByTestId("list-products")).toContainText(
     "Mens Casual Slim Fit",
   );
+
+  // Expect to have ?q=Slim
+  await expect(page).toHaveURL(/[?&]q=Slim/);
+});
+
+test("User can query products based on categories", async ({ page }) => {
+  await page.goto("http://localhost:5173/");
+
+  await page.getByRole("button", { name: "jewelery" }).click();
+  await page.getByRole("button", { name: "women's clothing" }).click();
+  await expect(page.getByTestId("list-products")).toContainText("jewelery");
+  await expect(page.getByTestId("list-products")).toContainText(
+    "women's clothing",
+  );
+
+  // Expect to have ?categories=jewelery,women%27s+clothing
+  const url = page.url();
+  expect(url).toMatch(/[?&]categories=jewelery,women%27s\+clothing/);
 });
