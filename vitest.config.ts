@@ -23,6 +23,7 @@ export default mergeConfig(
         ],
       },
       include: ["**/*.test.?(c|m)[jt]s?(x)"],
+      setupFiles: "src/tests/setup/vite-setup.ts",
     },
   }),
 );
