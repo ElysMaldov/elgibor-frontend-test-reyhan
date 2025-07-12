@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/ui/buttons/ModeToggle";
 import AppLogo from "@/components/ui/logo/AppLogo";
 import { Button } from "@/components/ui/shadcn/button";
 import { Heart } from "lucide-react";
@@ -13,11 +14,15 @@ const AppNavbar = () => {
           </Button>
         </Link>
 
-        <Link to="/wishlist">
-          <Button variant="link">
-            <Heart className="size-5.5 fill-current" />
-          </Button>
-        </Link>
+        <section className="flex flex-row gap-x-2">
+          <ModeToggle />
+
+          <Link to="/wishlist">
+            <Button variant="link">
+              <Heart className="size-5.5 fill-current" />
+            </Button>
+          </Link>
+        </section>
       </section>
     </nav>
   );

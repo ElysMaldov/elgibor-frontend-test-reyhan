@@ -8,6 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import "./styles/globals.css";
 import { Toaster } from "@/components/ui/shadcn/sonner";
+import { ThemeProvider } from "@/components/utils/providers/ThemeProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,8 +19,10 @@ createRoot(document.getElementById("root")!).render(
           persistor={persistor}
         >
           <NuqsAdapter>
-            <Toaster />
-            <App />
+            <ThemeProvider>
+              <Toaster />
+              <App />
+            </ThemeProvider>
           </NuqsAdapter>
         </PersistGate>
       </StoreProvider>
