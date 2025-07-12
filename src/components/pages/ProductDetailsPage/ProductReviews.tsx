@@ -1,9 +1,5 @@
 import ProductReviewForm from "@/components/pages/ProductDetailsPage/ProductReviewForm";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/shadcn/avatar";
+import ReviewsList from "@/components/pages/ProductDetailsPage/ReviewsList";
 import { Button } from "@/components/ui/shadcn/button";
 import { Separator } from "@/components/ui/shadcn/separator";
 import type { RootState } from "@/lib/store";
@@ -24,9 +20,6 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
   const averageRating = useSelector(
     (state: RootState) =>
       state.productReviews.reviews[productId]?.averageRating ?? 0,
-  );
-  const userReviews = useSelector(
-    (state: RootState) => state.productReviews.reviews[productId]?.userReviews,
   );
 
   const renderStars = (rating: number, size: "sm" | "md" = "sm") => {
@@ -82,44 +75,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
 
       <Separator />
 
-      {/* Reviews List */}
-      <section className="space-y-6">
-        {userReviews
-          ?.slice()
-          .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-          )
-          .map((review) => (
-            <section
-              key={review.id}
-              className="space-y-3"
-            >
-              <section className="flex items-start gap-3">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage
-                    src={review.userAvatar || "/placeholder.svg"}
-                    alt={review.name}
-                  />
-                  <AvatarFallback>{review.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <section className="flex-1 space-y-2">
-                  <section className="flex items-center gap-2">
-                    <h4 className="font-semibold">{review.name}</h4>
-                    <small>{review.email}</small>
-                  </section>
-                  <section className="flex items-center gap-2">
-                    {renderStars(review.rating)}
-                    <span className="text-sm text-muted-foreground">
-                      {new Date(review.date).toLocaleDateString()}
-                    </span>
-                  </section>
-                  <p className="text-sm leading-relaxed">{review.comment}</p>
-                </section>
-              </section>
-              <Separator />
-            </section>
-          ))}
-      </section>
+      <ReviewsList productId={productId} />
     </section>
   );
 }

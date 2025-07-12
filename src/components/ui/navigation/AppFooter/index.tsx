@@ -10,16 +10,12 @@ import { Link } from "react-router";
 
 const footerLinks = [
   {
-    title: "Overview",
-    href: "#",
+    title: "Catalogue",
+    href: "/",
   },
   {
-    title: "Features",
-    href: "#",
-  },
-  {
-    title: "Pricing",
-    href: "#",
+    title: "Wishlist",
+    href: "/wishlist",
   },
   {
     title: "Careers",

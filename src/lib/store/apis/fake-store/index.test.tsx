@@ -13,9 +13,14 @@ describe("Fake Store APIs", () => {
       wrapper: StoreProvider,
     });
 
-    await waitFor(() => {
-      expect(result.current.isSuccess).toBe(true);
-    });
+    await waitFor(
+      () => {
+        expect(result.current.isSuccess || result.current.isError).toBe(true);
+      },
+      { timeout: 5000 },
+    );
+
+    expect(result.current.isSuccess).toBe(true);
 
     result.current.data?.forEach((data) => {
       expect(data).toHaveProperty("category");
