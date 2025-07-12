@@ -9,14 +9,20 @@ export interface ProductListProps {
 const ProductList = ({ products }: ProductListProps) => {
   const productCards = products.map((product) => (
     <li key={product.id}>
-      <Link to={`/product/${product.id}`}>
+      <Link
+        to={`/product/${product.id}`}
+        data-testid={`product-card-${product.id}`}
+      >
         <ProductCard {...product} />
       </Link>
     </li>
   ));
 
   return (
-    <ul className="grid grid-cols-2 gap-2.5 md:grid-cols-3 lg:grid-cols-4">
+    <ul
+      className="grid grid-cols-2 gap-2.5 md:grid-cols-3 lg:grid-cols-4"
+      data-testid="list-products"
+    >
       {productCards}
     </ul>
   );

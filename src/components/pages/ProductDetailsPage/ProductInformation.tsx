@@ -107,7 +107,12 @@ const ProductInformation = ({
           <section className="space-y-6">
             <section>
               <Badge className="mb-2">{category}</Badge>
-              <h1 className="text-3xl leading-tight font-bold">{title}</h1>
+              <h1
+                className="text-3xl leading-tight font-bold"
+                data-testid="product-details-title"
+              >
+                {title}
+              </h1>
             </section>
 
             <section className="flex items-center gap-4">

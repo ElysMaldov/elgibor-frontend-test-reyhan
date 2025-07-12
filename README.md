@@ -87,6 +87,8 @@ Proyek ini dilengkapi unit testing menggunakan Vitest dan e2e testing menggunaka
 
 ### Menjalankan e2e Testing
 
+> ⚠️ Pastikan server lokal sudah berjalan dengan perintah `npm run dev` sebelum menjalankan e2e testing. Namun, jika menjalankan command e2e test di bawah seharusnya akan secara otomatis menjalankan server lokal.
+
 1. Jika ingin menjalankan e2e testing di CLI, gunakan:
 
    ```bash
@@ -139,7 +141,7 @@ Tidak semua logika ataupun komponen dapat diuji dengan waktu yang terbatas, sehi
 
 ### e2e Tests
 
-e2e test menggunuakan Playwright untuk memastikan fitur-fitur yang diperlukan berfungsi dengan benar ketika digunakan user. e2e test dapat menguji kode yang dijalankan secara lokal ataupun di production yang sudah di host di Vercel.
+e2e test menggunuakan Playwright untuk memastikan fitur-fitur yang diperlukan berfungsi dengan benar ketika digunakan user. Untuk sekarang, e2e test hanya dapat menguji website yang dijalankan secara lokal. Jika ingin menguji di production atau environment lain, bisa ubah URL yang digunakan oleh metode-metode `page.goto`.
 
 ## CI/CD
 
