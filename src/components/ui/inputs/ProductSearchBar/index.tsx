@@ -2,7 +2,6 @@ import { Input } from "@/components/ui/shadcn/input";
 import useProductQueryParams from "@/lib/hooks/use-product-query-params";
 import { Search } from "lucide-react";
 import { useCallback, type ChangeEventHandler } from "react";
-import { useDebouncedCallback } from "use-debounce";
 
 export interface ProductSearchBarProps {
   onInputChange: (q: string) => void;
@@ -11,14 +10,12 @@ export interface ProductSearchBarProps {
 const ProductSearchBar = ({ onInputChange }: ProductSearchBarProps) => {
   const { q, setQ } = useProductQueryParams();
 
-  const debouncedInputChange = useDebouncedCallback(onInputChange, 250);
-
   const inputChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       setQ(e.target.value);
-      debouncedInputChange(e.target.value);
+      onInputChange(e.target.value);
     },
-    [debouncedInputChange, setQ],
+    [onInputChange, setQ],
   );
 
   return (
@@ -28,7 +25,7 @@ const ProductSearchBar = ({ onInputChange }: ProductSearchBarProps) => {
           Find Your Perfect Product
         </h1>
         <p className="text-lg text-muted-foreground">
-          Search through thousands of products to discover exactly what you need
+          Search through our various products to discover exactly what you need
         </p>
       </div>
 
