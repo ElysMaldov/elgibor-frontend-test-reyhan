@@ -79,7 +79,7 @@ export default function ProductReviews({
   return (
     <section className="space-y-6">
       {/* Reviews Summary */}
-      <section className="flex items-center justify-between">
+      <section className="flex flex-col items-start gap-y-4 sm:flex-row sm:items-center sm:justify-between">
         <section>
           <h2 className="text-2xl font-bold">Customer Reviews</h2>
           <section className="mt-2 flex items-center gap-2">
@@ -95,6 +95,7 @@ export default function ProductReviews({
         <Button
           onClick={() => setShowAddReview(!showAddReview)}
           variant={showAddReview ? "outline" : "default"}
+          className="w-full sm:w-fit"
         >
           {showAddReview ? "Cancel" : "Write a Review"}
         </Button>
