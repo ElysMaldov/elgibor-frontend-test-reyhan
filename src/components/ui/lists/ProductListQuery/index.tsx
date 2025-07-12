@@ -12,14 +12,16 @@ import { useMemo } from "react";
 
 const ProductListQuery = () => {
   const { data, error, isLoading } = useListProductsQuery();
-  const { q, setQ } = useProductQueryParams();
+  const { q, setQ, categories } = useProductQueryParams();
   const filteredProducts = useMemo(() => {
-    if (!q) return data;
+    const filteredByCategory = data?.filter(
+      (product) => !categories?.length || categories.includes(product.category),
+    );
 
-    return data?.filter((product) =>
+    return filteredByCategory?.filter((product) =>
       new RegExp(sanitizeQueryParam(q), "i").test(product.title),
     );
-  }, [data, q]);
+  }, [categories, data, q]);
 
   if (isLoading) {
     return <FetchingProducts />;
