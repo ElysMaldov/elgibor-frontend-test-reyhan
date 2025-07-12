@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/shadcn/button";
 import { Route, Routes } from "react-router";
 
 function App() {
@@ -5,7 +6,7 @@ function App() {
     <Routes>
       <Route
         index
-        element={<p className="bg-amber-500 text-8xl">Home</p>}
+        element={<Button>Click Me</Button>}
       />
     </Routes>
   );
