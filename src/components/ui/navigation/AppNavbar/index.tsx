@@ -15,7 +15,7 @@ const AppNavbar = () => {
 
         <Link to="/wishlist">
           <Button variant="link">
-            <Heart className="size-5.5" />
+            <Heart className="size-5.5 fill-current" />
           </Button>
         </Link>
       </section>
