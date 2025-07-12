@@ -1,4 +1,8 @@
 import { fakeStoreApi } from "@/lib/store/apis/fake-store";
+import {
+  productReviewsReducer,
+  productReviewsSlice,
+} from "@/lib/store/reducers/product-reviews";
 import { wishlistReducer, wishlistSlice } from "@/lib/store/reducers/wishlist";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -8,6 +12,7 @@ export const store = configureStore({
   reducer: {
     [wishlistSlice.name]: wishlistReducer,
     [fakeStoreApi.reducerPath]: fakeStoreApi.reducer,
+    [productReviewsSlice.name]: productReviewsReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>

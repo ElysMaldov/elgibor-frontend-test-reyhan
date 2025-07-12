@@ -23,6 +23,8 @@ export default tseslint.config([
   {
     rules: {
       "react-refresh/only-export-components": "off",
+      "no-empty-pattern": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
     },
   },
 ]);

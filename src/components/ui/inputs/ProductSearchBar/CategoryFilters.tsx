@@ -38,7 +38,11 @@ const CategoryFilters = () => {
     );
   });
 
-  return <ul className="flex flex-row flex-wrap gap-1">{categoryFilters}</ul>;
+  return (
+    <ul className="flex flex-row flex-wrap justify-center gap-1">
+      {categoryFilters}
+    </ul>
+  );
 };
 
 export default CategoryFilters;

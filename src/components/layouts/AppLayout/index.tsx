@@ -6,7 +6,7 @@ const AppLayout = () => {
   return (
     <main className="flex flex-col gap-y-4">
       <AppNavbar />
-      <section className="mx-auto max-w-5xl px-4">
+      <section className="mx-auto h-fit min-h-[65vh] max-w-5xl px-4">
         <Outlet />
       </section>
       <AppFooter />

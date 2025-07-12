@@ -1,5 +1,3 @@
-"use client";
-
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 
 const useProductQueryParams = () => {
