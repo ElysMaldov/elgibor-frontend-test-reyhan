@@ -36,7 +36,7 @@ const ProductListQuery = () => {
   }
 
   return (
-    <section className="h-fit min-h-[65vh]">
+    <section>
       <ProductSearchBar />
 
       {filteredProducts.length ? (

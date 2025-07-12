@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import "./styles/globals.css";
+import { Toaster } from "@/components/ui/shadcn/sonner";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
           persistor={persistor}
         >
           <NuqsAdapter>
+            <Toaster richColors />
             <App />
           </NuqsAdapter>
         </PersistGate>

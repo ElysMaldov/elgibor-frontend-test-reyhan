@@ -1,5 +1,6 @@
 import type { ProductCardProps } from "@/components/ui/cards/ProductCard";
 import ProductCard from "@/components/ui/cards/ProductCard";
+import { Link } from "react-router";
 
 export interface ProductListProps {
   products: ProductCardProps[];
@@ -8,7 +9,9 @@ export interface ProductListProps {
 const ProductList = ({ products }: ProductListProps) => {
   const productCards = products.map((product) => (
     <li key={product.id}>
-      <ProductCard {...product} />
+      <Link to={`/product/${product.id}`}>
+        <ProductCard {...product} />
+      </Link>
     </li>
   ));
 
