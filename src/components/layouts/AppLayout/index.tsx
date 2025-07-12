@@ -3,9 +3,11 @@ import { Outlet } from "react-router";
 
 const AppLayout = () => {
   return (
-    <main>
+    <main className="flex flex-col gap-y-4">
       <AppNavbar />
-      <Outlet />
+      <section className="px-4">
+        <Outlet />
+      </section>
     </main>
   );
 };

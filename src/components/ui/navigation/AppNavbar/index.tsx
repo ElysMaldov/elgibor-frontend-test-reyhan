@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const AppNavbar = () => {
   return (
-    <nav className="flex w-full flex-row justify-between border-b px-5 py-3">
+    <nav className="sticky top-0 flex w-full flex-row justify-between border-b px-5 py-3">
       <Link to="/">
         <Button variant="link">
           <h2 className="flex flex-row items-center gap-1.5">
