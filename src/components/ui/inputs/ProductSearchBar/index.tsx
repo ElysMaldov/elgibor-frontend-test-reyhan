@@ -1,3 +1,4 @@
+import CategoryFilters from "@/components/ui/inputs/ProductSearchBar/CategoryFilters";
 import { Input } from "@/components/ui/shadcn/input";
 import useProductQueryParams from "@/lib/hooks/use-product-query-params";
 import { Search } from "lucide-react";
@@ -35,23 +36,12 @@ const ProductSearchBar = () => {
         />
       </div>
 
-      {/* TODO add filter by category */}
-      {/* <div className="flex flex-wrap justify-center gap-2">
-        <span className="text-sm text-muted-foreground">Popular searches:</span>
-        <button className="text-sm text-primary hover:underline">
-          Electronics
-        </button>
-        <span className="text-muted-foreground">•</span>
-        <button className="text-sm text-primary hover:underline">
-          Clothing
-        </button>
-        <span className="text-muted-foreground">•</span>
-        <button className="text-sm text-primary hover:underline">
-          Home & Garden
-        </button>
-        <span className="text-muted-foreground">•</span>
-        <button className="text-sm text-primary hover:underline">Sports</button>
-      </div> */}
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <span className="text-sm text-muted-foreground">
+          Search by category:
+        </span>
+        <CategoryFilters />
+      </div>
     </div>
   );
 };
