@@ -12,7 +12,7 @@ import { useMemo } from "react";
 
 const ProductListQuery = () => {
   const { data, error, isLoading } = useListProductsQuery();
-  const { q, setQ, categories } = useProductQueryParams();
+  const { q, setQ, categories, setCategories } = useProductQueryParams();
   const filteredProducts = useMemo(() => {
     const filteredByCategory = data?.filter(
       (product) => !categories?.length || categories.includes(product.category),
@@ -45,7 +45,14 @@ const ProductListQuery = () => {
         <section className="flex flex-col items-center gap-y-1">
           <CircleQuestionMark />
           <p className="text-center">No products found</p>
-          <Button onClick={() => setQ("")}>Reset search</Button>
+          <Button
+            onClick={() => {
+              setQ("");
+              setCategories([]);
+            }}
+          >
+            Reset search
+          </Button>
         </section>
       )}
     </section>
