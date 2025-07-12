@@ -1,19 +1,22 @@
-import { Button } from "@/components/ui/shadcn/button";
+import AppLayout from "@/components/layouts/AppLayout";
+import ProductCataloguePage from "@/components/pages/ProductCataloguePage";
+import NotFound from "@/components/utils/errors/NotFound";
 import { Route, Routes } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "@/lib/store";
-import { increment } from "@/lib/store/reducers/wishlist";
 
 function App() {
-  const count = useSelector((state: RootState) => state.wishlist.value);
-  const dispatch = useDispatch();
-
   return (
     <Routes>
-      <Route
-        index
-        element={<Button onClick={() => dispatch(increment())}>{count}</Button>}
-      />
+      <Route element={<AppLayout />}>
+        <Route
+          index
+          element={<ProductCataloguePage />}
+        />
+
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
+      </Route>
     </Routes>
   );
 }
