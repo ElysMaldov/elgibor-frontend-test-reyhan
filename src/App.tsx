@@ -1,12 +1,11 @@
 import { Route, Routes } from "react-router";
-import "./App.css";
 
 function App() {
   return (
     <Routes>
       <Route
         index
-        element={<p>Home</p>}
+        element={<p className="bg-amber-500 text-8xl">Home</p>}
       />
     </Routes>
   );
