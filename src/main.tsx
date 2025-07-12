@@ -1,23 +1,28 @@
-import { persistor, store } from "@/lib/store/index.ts";
+import { persistor } from "@/lib/store/index.ts";
+import StoreProvider from "@/lib/store/Provider.tsx";
+import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import "./styles/globals.css";
+import { Toaster } from "@/components/ui/shadcn/sonner";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
+      <StoreProvider>
         <PersistGate
           loading={null}
           persistor={persistor}
         >
-          <App />
+          <NuqsAdapter>
+            <Toaster />
+            <App />
+          </NuqsAdapter>
         </PersistGate>
-      </Provider>
+      </StoreProvider>
     </BrowserRouter>
   </StrictMode>,
 );
