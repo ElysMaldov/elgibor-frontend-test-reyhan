@@ -7,16 +7,15 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/shadcn/avatar";
-import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
 import { Label } from "@/components/ui/shadcn/label";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 
-import { Star, ThumbsDown, ThumbsUp } from "lucide-react";
-import { useState } from "react";
 import type { UserReview } from "@/lib/types/UserReview";
+import { Star } from "lucide-react";
+import { useState } from "react";
 
 interface ProductReviewsProps {
   productId: number;
@@ -92,7 +91,7 @@ export default function ProductReviews({
   const renderStars = (rating: number, size: "sm" | "md" = "sm") => {
     const starSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";
     return (
-      <div className="flex items-center gap-0.5">
+      <section className="flex items-center gap-0.5">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
@@ -103,7 +102,7 @@ export default function ProductReviews({
             }`}
           />
         ))}
-      </div>
+      </section>
     );
   };
 
@@ -112,7 +111,7 @@ export default function ProductReviews({
     onRatingChange: (rating: number) => void,
   ) => {
     return (
-      <div className="flex items-center gap-1">
+      <section className="flex items-center gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
@@ -129,17 +128,17 @@ export default function ProductReviews({
             />
           </button>
         ))}
-      </div>
+      </section>
     );
   };
 
   return (
-    <div className="space-y-6">
+    <section className="space-y-6">
       {/* Reviews Summary */}
-      <div className="flex items-center justify-between">
-        <div>
+      <section className="flex items-center justify-between">
+        <section>
           <h2 className="text-2xl font-bold">Customer Reviews</h2>
-          <div className="mt-2 flex items-center gap-2">
+          <section className="mt-2 flex items-center gap-2">
             {renderStars(averageRating, "md")}
             <span className="text-lg font-semibold">
               {averageRating.toFixed(1)}
@@ -147,15 +146,15 @@ export default function ProductReviews({
             <span className="text-muted-foreground">
               ({totalReviews} reviews)
             </span>
-          </div>
-        </div>
+          </section>
+        </section>
         <Button
           onClick={() => setShowAddReview(!showAddReview)}
           variant={showAddReview ? "outline" : "default"}
         >
           {showAddReview ? "Cancel" : "Write a Review"}
         </Button>
-      </div>
+      </section>
 
       {/* Add Review Form */}
       {showAddReview && (
@@ -168,15 +167,15 @@ export default function ProductReviews({
               onSubmit={handleSubmitReview}
               className="space-y-4"
             >
-              <div>
+              <section>
                 <Label htmlFor="rating">Rating</Label>
-                <div className="mt-1">
+                <section className="mt-1">
                   {renderRatingStars(newReview.rating, (rating) =>
                     setNewReview({ ...newReview, rating }),
                   )}
-                </div>
-              </div>
-              <div>
+                </section>
+              </section>
+              <section>
                 <Label htmlFor="comment">Your Review</Label>
                 <Textarea
                   id="comment"
@@ -189,7 +188,7 @@ export default function ProductReviews({
                   className="mt-1"
                   rows={4}
                 />
-              </div>
+              </section>
               <Button
                 type="submit"
                 disabled={!newReview.comment.trim()}
@@ -204,13 +203,13 @@ export default function ProductReviews({
       <Separator />
 
       {/* Reviews List */}
-      <div className="space-y-6">
+      <section className="space-y-6">
         {reviews.map((review) => (
-          <div
+          <section
             key={review.id}
             className="space-y-3"
           >
-            <div className="flex items-start gap-3">
+            <section className="flex items-start gap-3">
               <Avatar className="h-10 w-10">
                 <AvatarImage
                   src={review.userAvatar || "/placeholder.svg"}
@@ -218,41 +217,23 @@ export default function ProductReviews({
                 />
                 <AvatarFallback>{review.userName.charAt(0)}</AvatarFallback>
               </Avatar>
-              <div className="flex-1 space-y-2">
-                <div className="flex items-center gap-2">
+              <section className="flex-1 space-y-2">
+                <section className="flex items-center gap-2">
                   <h4 className="font-semibold">{review.userName}</h4>
-                  {review.verified && (
-                    <Badge
-                      variant="secondary"
-                      className="text-xs"
-                    >
-                      Verified Purchase
-                    </Badge>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
+                </section>
+                <section className="flex items-center gap-2">
                   {renderStars(review.rating)}
                   <span className="text-sm text-muted-foreground">
                     {review.date}
                   </span>
-                </div>
+                </section>
                 <p className="text-sm leading-relaxed">{review.comment}</p>
-                <div className="flex items-center gap-4 pt-2">
-                  <button className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground">
-                    <ThumbsUp className="h-4 w-4" />
-                    Helpful
-                  </button>
-                  <button className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground">
-                    <ThumbsDown className="h-4 w-4" />
-                    Not helpful
-                  </button>
-                </div>
-              </div>
-            </div>
+              </section>
+            </section>
             <Separator />
-          </div>
+          </section>
         ))}
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }

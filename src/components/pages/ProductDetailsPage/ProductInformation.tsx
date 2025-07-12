@@ -103,7 +103,7 @@ const ProductInformation = ({
             <img
               src={image || "/placeholder.svg"}
               alt={title}
-              className="relative aspect-square overflow-hidden object-contain"
+              className="relative aspect-square overflow-hidden bg-white object-contain"
             />
           </section>
 
