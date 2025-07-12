@@ -1,16 +1,11 @@
-import type React from "react";
-
+import ProductReviewForm from "@/components/pages/ProductDetailsPage/ProductReviewForm";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/shadcn/avatar";
 import { Button } from "@/components/ui/shadcn/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
-import { Label } from "@/components/ui/shadcn/label";
 import { Separator } from "@/components/ui/shadcn/separator";
-import { Textarea } from "@/components/ui/shadcn/textarea";
-
 import type { UserReview } from "@/lib/types/UserReview";
 import { Star } from "lucide-react";
 import { useState } from "react";
@@ -26,7 +21,7 @@ export default function ProductReviews({
   averageRating,
   totalReviews,
 }: ProductReviewsProps) {
-  const [reviews, setReviews] = useState<UserReview[]>([
+  const [reviews /* setReviews */] = useState<UserReview[]>([
     {
       id: "1",
       userId: "user1",
@@ -61,30 +56,7 @@ export default function ProductReviews({
     },
   ]);
 
-  const [newReview, setNewReview] = useState({
-    rating: 5,
-    comment: "",
-  });
-
   const [showAddReview, setShowAddReview] = useState(false);
-
-  const handleSubmitReview = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const review: UserReview = {
-      id: Date.now().toString(),
-      userId: "current-user",
-      userName: "You",
-      rating: newReview.rating,
-      comment: newReview.comment,
-      date: new Date().toISOString().split("T")[0],
-      verified: false,
-    };
-
-    setReviews([review, ...reviews]);
-    setNewReview({ rating: 5, comment: "" });
-    setShowAddReview(false);
-  };
 
   const renderStars = (rating: number, size: "sm" | "md" = "sm") => {
     const starSize = size === "sm" ? "w-4 h-4" : "w-5 h-5";
@@ -99,32 +71,6 @@ export default function ProductReviews({
                 : "fill-gray-200 text-gray-200"
             }`}
           />
-        ))}
-      </section>
-    );
-  };
-
-  const renderRatingStars = (
-    rating: number,
-    onRatingChange: (rating: number) => void,
-  ) => {
-    return (
-      <section className="flex items-center gap-1">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            type="button"
-            onClick={() => onRatingChange(star)}
-            className="transition-transform hover:scale-110"
-          >
-            <Star
-              className={`h-6 w-6 ${
-                star <= rating
-                  ? "fill-yellow-400 text-yellow-400"
-                  : "fill-gray-200 text-gray-200"
-              }`}
-            />
-          </button>
         ))}
       </section>
     );
@@ -154,49 +100,8 @@ export default function ProductReviews({
         </Button>
       </section>
 
-      {/* Add Review Form */}
-      {showAddReview && (
-        <Card>
-          <CardHeader>
-            <h3 className="text-lg font-semibold">Write Your Review</h3>
-          </CardHeader>
-          <CardContent>
-            <form
-              onSubmit={handleSubmitReview}
-              className="space-y-4"
-            >
-              <section>
-                <Label htmlFor="rating">Rating</Label>
-                <section className="mt-1">
-                  {renderRatingStars(newReview.rating, (rating) =>
-                    setNewReview({ ...newReview, rating }),
-                  )}
-                </section>
-              </section>
-              <section>
-                <Label htmlFor="comment">Your Review</Label>
-                <Textarea
-                  id="comment"
-                  placeholder="Share your thoughts about this product..."
-                  value={newReview.comment}
-                  onChange={(e) =>
-                    setNewReview({ ...newReview, comment: e.target.value })
-                  }
-                  required
-                  className="mt-1"
-                  rows={4}
-                />
-              </section>
-              <Button
-                type="submit"
-                disabled={!newReview.comment.trim()}
-              >
-                Submit Review
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+      {/* Review Form */}
+      {showAddReview && <ProductReviewForm />}
 
       <Separator />
 
