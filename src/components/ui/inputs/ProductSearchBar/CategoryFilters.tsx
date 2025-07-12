@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/shadcn/badge";
 import NotFound from "@/components/utils/errors/NotFound";
 import SomethingWentWrong from "@/components/utils/errors/SomethingWentWrong";
-import FetchingProducts from "@/components/utils/loading/FetchingProducts";
 import useProductQueryParams from "@/lib/hooks/use-product-query-params";
 import { useListCategoriesQuery } from "@/lib/store/apis/fake-store";
 
@@ -10,7 +9,7 @@ const CategoryFilters = () => {
   const { categories: selectedCategories } = useProductQueryParams();
 
   if (isLoading) {
-    return <FetchingProducts />;
+    return null;
   }
 
   if (error) {

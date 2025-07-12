@@ -1,7 +1,9 @@
+import WishlistListQuery from "@/components/ui/lists/WishlistListQuery";
+
 export interface WishlistPageProps {}
 
 const WishlistPage = ({}: WishlistPageProps) => {
-  return <p>Wishlist</p>;
+  return <WishlistListQuery />;
 };
 
 export default WishlistPage;

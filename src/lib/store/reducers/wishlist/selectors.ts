@@ -10,3 +10,10 @@ export const selectIsInWishlist = (
   state: RootState,
   productId: string,
 ): boolean => state.wishlist.items.includes(productId);
+
+/**
+ * Selector to get the entire wishlist state.
+ * @param state Redux root state
+ * @returns Wishlist state
+ */
+export const selectWishlist = (state: RootState) => state.wishlist;
