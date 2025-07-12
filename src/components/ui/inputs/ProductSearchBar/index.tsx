@@ -3,19 +3,14 @@ import useProductQueryParams from "@/lib/hooks/use-product-query-params";
 import { Search } from "lucide-react";
 import { useCallback, type ChangeEventHandler } from "react";
 
-export interface ProductSearchBarProps {
-  onInputChange: (q: string) => void;
-}
-
-const ProductSearchBar = ({ onInputChange }: ProductSearchBarProps) => {
+const ProductSearchBar = () => {
   const { q, setQ } = useProductQueryParams();
 
   const inputChangeHandler: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       setQ(e.target.value);
-      onInputChange(e.target.value);
     },
-    [onInputChange, setQ],
+    [setQ],
   );
 
   return (

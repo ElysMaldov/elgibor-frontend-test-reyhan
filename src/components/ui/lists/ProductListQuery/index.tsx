@@ -35,7 +35,7 @@ const ProductListQuery = () => {
 
   return (
     <section className="h-fit min-h-[65vh]">
-      <ProductSearchBar onInputChange={(val) => setQ(val)} />
+      <ProductSearchBar />
 
       {filteredProducts.length ? (
         <ProductList products={filteredProducts} />
