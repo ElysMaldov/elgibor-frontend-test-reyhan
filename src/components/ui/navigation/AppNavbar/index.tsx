@@ -17,7 +17,10 @@ const AppNavbar = () => {
         <section className="flex flex-row gap-x-2">
           <ModeToggle />
 
-          <Link to="/wishlist">
+          <Link
+            to="/wishlist"
+            data-testid="button-wishlist-menu"
+          >
             <Button variant="link">
               <Heart className="size-5.5 fill-current" />
             </Button>

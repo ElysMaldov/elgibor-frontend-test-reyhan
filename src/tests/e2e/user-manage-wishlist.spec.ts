@@ -25,6 +25,41 @@ test("User can add a product into wishlist", async ({ page }) => {
   await expect(page.getByRole("main")).toContainText("In Wishlist");
 });
 
+test("User can see their wishlisted products", async ({ page }) => {
+  await page.goto("http://localhost:5173/");
+
+  await page.getByTestId("product-card-1").click();
+  await expect(page).toHaveURL(/\/product\/\d+/);
+  await expect(page.getByTestId("product-details-title")).toBeVisible();
+
+  const addToWishlistButtonProduct1 = page.getByRole("button", {
+    name: "Add to Wishlist",
+  });
+  if (await addToWishlistButtonProduct1.isVisible()) {
+    await addToWishlistButtonProduct1.click();
+  }
+  await page.getByRole("button", { name: "Chqred" }).click();
+
+  await page.getByTestId("product-card-2").click();
+  await expect(page).toHaveURL(/\/product\/\d+/);
+  await expect(page.getByTestId("product-details-title")).toBeVisible();
+
+  const addToWishlistButtonProduct2 = page.getByRole("button", {
+    name: "Add to Wishlist",
+  });
+  if (await addToWishlistButtonProduct2.isVisible()) {
+    await addToWishlistButtonProduct2.click();
+  }
+
+  await page.getByTestId("button-wishlist-menu").getByRole("button").click();
+
+  await expect(page.locator("h1")).toContainText("Wishlist");
+
+  const items = page.getByTestId("list-wishlist").locator("li");
+  const count = await items.count();
+  expect(count).toBeGreaterThan(0);
+});
+
 test("User can remove a product from wishlist in details page", async ({
   page,
 }) => {
